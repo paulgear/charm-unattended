@@ -1,0 +1,44 @@
+#!/usr/bin/env python3
+
+from charmhelpers.core import hookenv
+from charmhelpers.core import templating
+
+
+hookenv.status_set('maintenance', 'Configuring unattended-upgrades')
+#hookenv.application_version_set(fetch.get_upstream_version('unattended-upgrades'))
+
+config = hookenv.config()
+reboot_time = config['reboot-time']
+if reboot_time == 'immediate':
+    reboot_time = 'now'
+if reboot_time == 'none':
+    reboot = 'false'
+else:
+    reboot = 'true'
+
+context = {
+
+    'unattended_installonshutdown': 'false',
+    'unattended_mail': '',
+    'unattended_mailonlyonerror': 'true',
+    'unattended_reboot': reboot,
+    'unattended_reboot_time': reboot_time,
+    'unattended_removeunused': config['remove-unused'],
+
+}
+
+templating.render(
+    source='99unattended-upgrades',
+    target='/etc/apt/apt.conf.d/99unattended-upgrades',
+    context=context,
+    perms=0o644,
+)
+
+templating.render(
+    source='cron.hourly',
+    target='/etc/cron.hourly/unattended-charm',
+    context={},
+    perms=0o755,
+)
+
+hookenv.status_set('active', 'Configured unattended-upgrades')

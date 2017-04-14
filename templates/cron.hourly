@@ -1,0 +1,5 @@
+#!/bin/bash
+DIR=/var/run/unattended-charm
+mkdir -p $DIR
+/usr/lib/update-notifier/apt-check >& $DIR/apt-check
+

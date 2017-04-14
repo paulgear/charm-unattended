@@ -1,0 +1,68 @@
+#!/bin/bash
+
+set -e
+set -u
+
+append()
+{
+    existing="$1"
+    suffix="$2"
+    if [ -n "$existing" ]; then
+	echo "$existing, $suffix"
+    else
+	echo "$suffix"
+    fi
+}
+
+status()
+{
+    status-set active "$@"
+    juju-log "$@"
+}
+
+if [ -e /var/run/reboot-required ]; then
+    reboot_time=$(config-get reboot-time)
+    if [ "$reboot_time" = "immediate" ]; then
+	status "Rebooting..."
+	sleep 5
+	juju-reboot --now
+	sleep 5
+	reboot
+    fi
+    #reboot_required=$(sort -u /var/run/reboot-required.pkgs)
+    status="Reboot required"
+else
+    status=""
+fi
+
+# use kernel version as app version
+application-version-set "$(uname -r)"
+
+# display security updates
+checkfile=/var/run/unattended-charm/apt-check
+if [ -e $checkfile ]; then
+    #normal_updates=$(cut -d";" -f1 < $checkfile)
+    security_updates=$(cut -d";" -f2 < $checkfile)
+else
+    security_updates=""
+fi
+
+if [ -z "$security_updates" ]; then
+    status=$(append "$status" "security update posture unknown")
+elif [ "$security_updates" -gt 0 ]; then
+    status=$(append "$status" "$security_updates security updates")
+fi
+
+if [ -n "$status" ]; then
+    status "$status"
+else
+    # report last package refresh date
+    updatefile=/var/lib/update-notifier/updates-available
+    lastupdated=$(stat --format=%y $updatefile 2>/dev/null| cut -d. -f1)
+    since=$(uptime -s)
+    if [ -n "$lastupdated" ]; then
+	status "up since $since, packages refreshed $lastupdated"
+    else
+	status "up since $since, packages not refreshed"
+    fi
+fi

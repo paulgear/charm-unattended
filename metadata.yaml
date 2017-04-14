@@ -1,0 +1,16 @@
+name: unattended
+summary: Configure and report on unattended upgrades and reboots
+maintainer: Paul Gear <paul.gear@canonical.com>
+description: |
+    Configure unattended upgrades and reboots.  Report status of pending updates and reboots.
+tags:
+    # https://jujucharms.com/docs/stable/authors-charm-metadata
+    - ops
+subordinate: true
+series:
+    - xenial
+    - trusty
+requires:
+    container:
+        interface: juju-info
+        scope: container

@@ -1,0 +1,14 @@
+options:
+  reboot-time:
+    type: string
+    default: 'now'
+    description: |
+        When to reboot, if needed?
+        'immediate': during the update-status hook
+        'now': when unattended-upgrades runs
+        'none' do not reboot automatically
+  remove-unused:
+    type: boolean
+    default: True
+    description: |
+        Remove unused dependencies.

@@ -1,0 +1,11 @@
+//
+// Managed by juju; do not edit here!
+// see /etc/apt/apt.conf.d/50unattended-upgrades for possible values
+//
+Unattended-Upgrade::Automatic-Reboot-Time "{{unattended_reboot_time}}";		// now
+Unattended-Upgrade::Automatic-Reboot "{{unattended_reboot}}";			// true
+Unattended-Upgrade::InstallOnShutdown "{{unattended_installonshutdown}}";	// false
+Unattended-Upgrade::MailOnlyOnError "{{unattended_mailonlyonerror}}";		// true
+Unattended-Upgrade::Mail "{{unattended_mail}}";					// empty
+Unattended-Upgrade::Remove-Unused-Dependencies "{{unattended_removeunused}}";	// true
+
