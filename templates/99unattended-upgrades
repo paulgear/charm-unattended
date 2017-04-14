@@ -9,3 +9,5 @@ Unattended-Upgrade::MailOnlyOnError "{{unattended_mailonlyonerror}}";		// true
 Unattended-Upgrade::Mail "{{unattended_mail}}";					// empty
 Unattended-Upgrade::Remove-Unused-Dependencies "{{unattended_removeunused}}";	// true
 
+APT::Periodic::Unattended-Upgrade "1";
+
