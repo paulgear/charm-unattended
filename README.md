@@ -4,15 +4,15 @@ Configure unattended upgrades and reboots.  Report status of pending updates and
 
 # Usage
 
-Step by step instructions on using the charm:
+How to use this charm:
 
-    juju deploy primarycharm
-    juju deploy unattended
+    juju deploy cs:primarycharm
+    juju deploy ./unattended unattended
     juju add-relation primarycharm unattended
 
 # Configuration
 
-By default unattended turns on AUTOMATIC REBOOTS when unattended-upgrades indicates they are needed.  If you do not want this set reboot-time to 'none' or a fixed time.
+By default unattended turns on AUTOMATIC REBOOTS when unattended-upgrades indicates they are needed.  If you do not want this, set reboot-time to 'none' or a fixed time.
 
 # License
 
