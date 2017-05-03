@@ -58,12 +58,12 @@ if [ -n "$status" ]; then
 else
     # report last package refresh date
     updatefile=/var/lib/update-notifier/updates-available
-    lastupdated=$(stat --format=%y $updatefile 2>/dev/null| cut -d. -f1)
-    since=$(uptime -s)
+    lastupdated=$(stat --format=%y $updatefile 2>/dev/null | cut -d. -f1 | cut -d: -f1-2)
+    since=$(uptime -s | cut -d: -f1-2)
     numpackages=$(/usr/lib/update-notifier/apt-check 2>&1)
     if [ -n "$lastupdated" ]; then
-	status "up since $since, packages ${numpackages}, refreshed $lastupdated"
+	status "up at $since, updates ${numpackages}, refreshed $lastupdated"
     else
-	status "up since $since, packages ${numpackages}, not refreshed"
+	status "up at $since, updates ${numpackages}, not refreshed"
     fi
 fi
