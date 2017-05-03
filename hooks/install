@@ -6,5 +6,5 @@
 # from github without installing git first.
 
 status-set maintenance "Installing unattended-upgrades"
-apt-get install -y unattended-upgrades
+apt-get install -y unattended-upgrades update-notifier-common
 status-set active "Installed unattended-upgrades"
