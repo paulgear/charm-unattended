@@ -22,4 +22,4 @@ git:
 	git push github
 
 charmstore:	localrepo
-	cd $(JUJU_REPOSITORY)/xenial/unattended/; charm push . cs:~$(USER)/unattended-upgrades
+	cd $(JUJU_REPOSITORY)/xenial/unattended/; charm push . cs:~$(USER)/unattended
