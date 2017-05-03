@@ -13,7 +13,13 @@ bin/charm_helpers_sync.py:
 sync: bin/charm_helpers_sync.py
 	$(PYTHON) bin/charm_helpers_sync.py -c charm-helpers-sync.yaml
 
-push:	lint
+push:	lint git charmstore
+
+localrepo:
 	rsync -av --exclude .git --exclude tests --exclude unused . $(JUJU_REPOSITORY)/xenial/unattended/
+
+git:
 	git push github
+
+charmstore:	localrepo
 	cd $(JUJU_REPOSITORY)/xenial/unattended/; charm push . cs:~$(USER)/unattended-upgrades
