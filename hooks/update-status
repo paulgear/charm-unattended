@@ -62,8 +62,8 @@ else
     since=$(uptime -s | cut -d: -f1-2)
     numpackages=$(/usr/lib/update-notifier/apt-check 2>&1)
     if [ -n "$lastupdated" ]; then
-	status "up at $since, updates ${numpackages}, refreshed $lastupdated"
+	status "updates ${numpackages}, up at $since, refreshed $lastupdated"
     else
-	status "up at $since, updates ${numpackages}, not refreshed"
+	status "updates ${numpackages}, up at $since, not refreshed"
     fi
 fi
