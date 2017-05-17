@@ -1,6 +1,13 @@
 # Overview
 
-Configure unattended upgrades and reboots.  Report status of pending updates and reboots.
+This charm is designed to ensure that the juju unit to which it deploys is optimally-configured for secure, unattended operation, and report a succinct summary of this in its juju status output.
+It is assumed that the unit is safe to reboot at any time and is part of a well-behaved application which can recover from such reboots automatically.
+
+Configuration items changed:
+
+- Install unattended-upgrades
+- Set unattended-upgrades to automatically reboot if required
+- Enable verbose boot, automatic file system fixing, and clearing out of /tmp in /etc/default/rcS
 
 # Usage
 
@@ -14,6 +21,8 @@ How to use this charm:
 
 By default unattended turns on AUTOMATIC REBOOTS when unattended-upgrades indicates they are needed.  If you do not want this, set reboot-time to 'none' or a fixed time.
 
+Set remove-unused to false if you do not want unused apt packages to be removed.
+
 # License
 
     This program is free software: you can redistribute it and/or modify
@@ -26,4 +35,4 @@ By default unattended turns on AUTOMATIC REBOOTS when unattended-upgrades indica
 
 Author: Paul Gear <paul.gear@canonical.com>
 
-- https://code.launchpad.net/~paulgear/
+https://code.launchpad.net/charm-unattended/
