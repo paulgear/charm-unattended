@@ -43,8 +43,10 @@ checkfile=/var/run/unattended-charm/apt-check
 if [ -e $checkfile ]; then
     #normal_updates=$(cut -d";" -f1 < $checkfile)
     security_updates=$(cut -d";" -f2 < $checkfile)
+    numpackages=$(cat $checkfile)
 else
     security_updates=""
+    numpackages="UNKNOWN"
 fi
 
 if [ -z "$security_updates" ]; then
@@ -60,7 +62,6 @@ else
     updatefile=/var/lib/update-notifier/updates-available
     lastupdated=$(stat --format=%y $updatefile 2>/dev/null | cut -d. -f1 | cut -d: -f1-2)
     since=$(uptime -s | cut -d: -f1-2)
-    numpackages=$(/usr/lib/update-notifier/apt-check 2>&1)
     if [ -n "$lastupdated" ]; then
 	status "updates ${numpackages}, up at $since, refreshed $lastupdated"
     else
