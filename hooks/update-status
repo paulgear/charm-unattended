@@ -35,9 +35,6 @@ else
     status=""
 fi
 
-# use kernel version as app version
-application-version-set "$(uname -r)"
-
 # display security updates
 checkfile=/var/run/unattended-charm/apt-check
 if [ -e $checkfile ]; then
@@ -57,14 +54,17 @@ fi
 
 if [ -n "$status" ]; then
     status "$status"
+    exit 0
+fi
+
+# report kernel & last package refresh date
+updatefile=/var/lib/update-notifier/updates-available
+lastupdated=$(stat --format=%y $updatefile 2>/dev/null | cut -d. -f1 | cut -d: -f1-2)
+since=$(uptime -s | cut -d: -f1-2)
+kernel="$(uname -r)"
+
+if [ -n "$lastupdated" ]; then
+    status "$kernel, up at $since, refreshed $lastupdated"
 else
-    # report last package refresh date
-    updatefile=/var/lib/update-notifier/updates-available
-    lastupdated=$(stat --format=%y $updatefile 2>/dev/null | cut -d. -f1 | cut -d: -f1-2)
-    since=$(uptime -s | cut -d: -f1-2)
-    if [ -n "$lastupdated" ]; then
-	status "updates ${numpackages}, up at $since, refreshed $lastupdated"
-    else
-	status "updates ${numpackages}, up at $since, not refreshed"
-    fi
+    status "$kernel, up at $since, not refreshed"
 fi

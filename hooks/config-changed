@@ -9,6 +9,8 @@ from charmhelpers.core import templating
 import os
 import os.path
 
+import version
+
 
 def create_context():
     config = hookenv.config()
@@ -59,10 +61,8 @@ def write_configuration(context):
     )
 
 
-VERSION = '0.2'
-
 hookenv.status_set('maintenance', 'Configuring')
-hookenv.application_version_set(VERSION)
+hookenv.application_version_set(version.VERSION)
 remove_old_config()
 context = create_context()
 write_configuration(context)
