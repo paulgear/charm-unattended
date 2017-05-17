@@ -1,4 +1,6 @@
 #!/bin/bash
+# This file is maintained by juju - do not edit here!
+# See https://code.launchpad.net/charm-unattended/
 DIR=/var/run/unattended-charm
 mkdir -p $DIR
 /usr/lib/update-notifier/apt-check >& $DIR/apt-check

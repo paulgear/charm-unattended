@@ -1,6 +1,6 @@
 //
-// Managed by juju; do not edit here!
-// see /etc/apt/apt.conf.d/50unattended-upgrades for possible values
+// This file is maintained by juju - do not edit here!
+// See https://code.launchpad.net/charm-unattended/
 //
 Unattended-Upgrade::Automatic-Reboot-Time "{{unattended_reboot_time}}";		// now
 Unattended-Upgrade::Automatic-Reboot "{{unattended_reboot}}";			// true
