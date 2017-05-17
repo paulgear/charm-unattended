@@ -16,7 +16,7 @@ sync: bin/charm_helpers_sync.py
 push:	lint git charmstore
 
 localrepo:
-	rsync -av --delete --delete-excluded --exclude .git --exclude tests --exclude unused . $(JUJU_REPOSITORY)/xenial/unattended/
+	rsync -av --delete --delete-excluded --exclude tests --exclude unused . $(JUJU_REPOSITORY)/xenial/unattended/
 
 git:
 	git push github
