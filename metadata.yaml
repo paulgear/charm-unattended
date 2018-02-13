@@ -9,6 +9,7 @@ tags:
 subordinate: true
 series:
     - xenial
+    - bionic
     - trusty
 requires:
     container:
